@@ -35,6 +35,14 @@ const Login = () => {
             </InputGroup>
         </FormControl>
         <Button colorScheme='blue' width={'100%'} style={{marginTop:15}} onClick={submitHandler}>Log In</Button>
+        <Button variant='solid' colorScheme='blue' width={'100%'} style={{marginTop:15}} 
+            onClick={()=>{
+                setEmail('guest@example.com');
+                setPassword('123456');
+            }}
+        >
+            Guest Sign In
+        </Button>
     </VStack>
   )
 }
