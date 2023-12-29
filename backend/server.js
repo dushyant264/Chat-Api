@@ -4,24 +4,24 @@ const dotenv = require('dotenv');
 const cors= require('cors');
 const {connectDB} = require('./config/db');
 const colors = require('colors');
+const userRoutes = require('./routes/userRoutes');
+const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 
-const app = express();
-app.use(cors());
 dotenv.config(); 
 connectDB();
+const app = express();
+app.use(cors());
+app.use(express.json());
+
 
 app.get("/", (req, res) => {
     res.send('API is running smoothly...');
 });
 
-app.get("/api/chat", (req, res) => {
-    res.send(chats);
-});
+app.use('/api/user', userRoutes);
 
-app.get("/api/chat/:id", (req, res) => {
-    const chat = chats.find((c) => c._id === req.params.id);
-    res.send(chat);
-});
+app.use(notFound);
+app.use(errorHandler);
 
 const Port= process.env.Port || 5000;
 
